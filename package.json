@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
+    "bignumber.js": "^7.0.1",
     "bitcoinjs-lib": "^3.3.2",
     "bitcore-lib": "^0.15.0",
     "body-parser": "^1.15.2",
@@ -40,6 +41,7 @@
     "csv-string": "^2.3.2",
     "debug": "^2.2.0",
     "dotenv": "^2.0.0",
+    "ethereumjs-util": "^5.2.0",
     "express": "^4.14.0",
     "express-fileupload": "0.0.7",
     "express-validation": "^1.0.1",
