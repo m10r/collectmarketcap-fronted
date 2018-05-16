@@ -7,6 +7,7 @@ import IdexTrade from '../db/models/idex_trade';
 import BittrexTrade from '../db/models/bittrex_trade';
 import IdexOrder from '../db/models/idex_orders';
 
+
 async function runTradeCronForIdex (){
   while (1) {
     
@@ -88,11 +89,13 @@ async function runTradeCronForIdexOrders (){
           if(lowest_sell && highest_buy)
             mid_price = (lowest_sell - highest_buy)/2
 
+
           data.filter(item=>{
             if ((item.price > mid_price * 0.7) && (item.price < mid_price * 1.3))
               return true
             else return false
           }).map(item=>{
+
             IdexOrder.where({orderHash: item.orderHash}).fetch()
             .then(val=>{
               if(!val) {
@@ -111,6 +114,7 @@ async function runTradeCronForIdexOrders (){
           })
         })
         
+        console.log('Got IdexOrder Data');  
       } catch (err) {
         console.log(err, 'From Get IdexOrder Data');
       }
@@ -164,7 +168,6 @@ async function runTradeCronForBittrex (){
                   tradesToAdd.push(new BittrexTrade(Object.assign(item, {market: markets.result[j+index].MarketName})).save() );
               })
           })
-
           await Promise.all(tradesToAdd);
           console.log('Got Bittrex ' + tradesToAdd.length);
         }
@@ -180,6 +183,6 @@ async function runTradeCronForBittrex (){
   }
 }
 
-// runTradeCronForIdex();
-// runTradeCronForBittrex();
+runTradeCronForIdex();
+runTradeCronForBittrex();
 runTradeCronForIdexOrders();
