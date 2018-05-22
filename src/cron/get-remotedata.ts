@@ -46,7 +46,7 @@ async function runTradeCronForIdex (){
     } else {
       console.log('Cancelled IdexTrade');
     } 
-    await wait(1000 * 30)
+    await wait(1000 * 60 * 5)
   }
 }
 
@@ -78,12 +78,12 @@ async function runTradeCronForIdexOrders (){
           let highest_buys = data.filter((item)=>item.type=='buy')
           let highest_buy:any = 0
           if (highest_buys.length > 0)
-            highest_buy = highest_buys.reduce((i1,i2)=>i1.price>i2.price?i1:i2).price
+            highest_buy = highest_buys.reduce((i1,i2)=>i1.price<i2.price?i1:i2).price
 
           let lowest_sells = data.filter((item)=>item.type=='sell')
           let lowest_sell:any = 0
           if (lowest_sells.length > 0)
-            lowest_sell = lowest_sells.reduce((i1,i2)=>i1.price<i2.price?i1:i2).price
+            lowest_sell = lowest_sells.reduce((i1,i2)=>i1.price>i2.price?i1:i2).price
           let mid_price:any = 0
           
           if(lowest_sell && highest_buy)
@@ -121,7 +121,7 @@ async function runTradeCronForIdexOrders (){
     } else {
       console.log('Cancelled IdexOrder');
     } 
-    await wait(1000 * 30)
+    await wait(1000 * 60)
   }
 }
 
